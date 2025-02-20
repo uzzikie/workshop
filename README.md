@@ -146,7 +146,7 @@ EOF
 ```
 kubectl get svc nginx-svc
 ```
-2. Curl output 
+2. Curl output (replace http://10.104.xx.xx with IP address from above output)
 ```
 curl http://10.104.xx.xx
 ```
@@ -154,7 +154,7 @@ curl http://10.104.xx.xx
 ```
 kubectl get pods
 ```
-4. Enter pod
+4. Enter pod (replace nginx-5b5757c7b7-s6q2x with pod name from above output)
 ```
 kubectl exec --stdin --tty nginx-5b5757c7b7-s6q2x -- /bin/bash
 ```  
