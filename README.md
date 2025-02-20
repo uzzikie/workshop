@@ -29,6 +29,8 @@ kubectl get svc
 ---
 ### whoami deployment
 
+https://hub.docker.com/r/traefik/whoami
+
 ```
 kubectl apply -f - <<EOF
 apiVersion: apps/v1
@@ -93,6 +95,9 @@ kubectl delete service whoami-svc
 
 ---
 ### nginx deployment
+
+https://hub.docker.com/_/nginx
+
 ```
 kubectl apply -f - <<EOF
 apiVersion: apps/v1
@@ -145,7 +150,25 @@ kubectl get svc nginx-svc
 ```
 curl http://10.104.xx.xx
 ```
-3. Clean up
+3. View pod
+```
+kubectl get pods
+```
+4. Enter pod
+```
+kubectl exec --stdin --tty nginx-5b5757c7b7-s6q2x -- /bin/bash
+```  
+5. Change directory
+```
+cd /usr/share/nginx/html
+```
+
+6. Exit pod
+```
+exit
+```
+
+7. Clean up
 ```
 kubectl delete deployment nginx
 kubectl delete service nginx-svc
