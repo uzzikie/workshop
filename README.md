@@ -163,12 +163,28 @@ kubectl exec --stdin --tty nginx-5b5757c7b7-s6q2x -- /bin/bash
 cd /usr/share/nginx/html
 ```
 
-6. Exit pod
+6. View index.html contents
+```
+cat index.html
+```
+
+7. Exit pod
 ```
 exit
 ```
 
-7. Clean up
+8. Get new index.html file
+```
+wget https://raw.githubusercontent.com/uzzikie/workshop/refs/heads/master/index.html
+```
+
+9. Replace index.html file
+```
+kubectl cp index.html default/nginx-5b5757c7b7-vkc2z:/usr/share/nginx/html
+```
+
+
+10. Clean up
 ```
 kubectl delete deployment nginx
 kubectl delete service nginx-svc
