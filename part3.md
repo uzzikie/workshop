@@ -86,9 +86,12 @@ wget https://raw.githubusercontent.com/uzzikie/workshop/refs/heads/master/index.
 ```
 kubectl cp index.html default/nginx-5b5757c7b7-vkc2z:/usr/share/nginx/html
 ```
+10. Curl output again.
+```
+curl http://10.104.xx.xx
+```
 
-
-10. Clean up
+11. Clean up
 ```
 kubectl delete deployment nginx
 kubectl delete service nginx-svc
