@@ -1,6 +1,6 @@
-### mariadb deployment
+### wordpress deployment
 
-https://hub.docker.com/_/mariadb
+https://hub.docker.com/_/wordpress
 
 ```
 kubectl apply -f - <<EOF
@@ -8,64 +8,63 @@ kubectl apply -f - <<EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mariadb
+  name: wordpress
   labels:
-    app: mariadb
-    name: mariadb
+    app: wordpress
+    name: wordpress
 spec:
   replicas: 1 
   selector: 
     matchLabels:
-      app: mariadb
+      app: wordpress
   template: 
     metadata:
       labels: 
-        app: mariadb
-    spec:
-      securityContext:
-        runAsUser: 999
-        runAsGroup: 999
-        fsGroup: 999
+        app: wordpress
+    spec:    
       containers:
-        - name: mariadbcontainer
-          image: mariadb:11
+        - name: wordpresscontainer
+          image: wordpress:php8.3
           env:
-            - name: TZ
-              value: Asia/Singapore
-            - name: MARIADB_ROOT_PASSWORD
-              value: rootpassword    
-            - name: MARIADB_USER
-              value: wordpress
-            - name: MARIADB_PASSWORD
-              value: userpassword    
-            - name: MARIADB_DATABASE
-              value: wordpress_db                                                     
+            - name: WORDPRESS_DB_HOST
+              value: mariadb-svc.default.svc.cluster.local
+            - name: WORDPRESS_DB_USER
+              value: wordpress    
+            - name: WORDPRESS_DB_PASSWORD
+              value: userpassword  
+            - name: WORDPRESS_DB_NAME
+              value: wordpress_db             
           ports:
-            - name: mariadb-port
-              containerPort: 3306
+            - name: http
+              containerPort: 80
+              protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mariadb-svc
+  name: wordpress-svc
 spec:
   ports:
-    - name: mariadb-port    
-      port: 3306
+    - name: http    
+      port: 80
       protocol: TCP
   selector:
-    app: mariadb    
+    app: wordpress    
 EOF
 ```
 
-1. View Pods
+1. View Service
 ```
-kubectl get pods
-```
-
-2. View Logs (replace mariadb-848c8f4487-nbz5x with pod name from above output)
-```
-kubectl logs mariadb-848c8f4487-nbz5x
+kubectl get svc
 ```
 
+2. Curl output (replace http://10.104.xx.xx with IP address from above output)
+```
+curl -v http://10.104.xx.xx
+```
+
+3. Curl wordpress install page (replace http://10.104.xx.xx with IP address from above output)
+```
+curl http://10.104.xx.xx/wp-admin/install.php
+```
 
