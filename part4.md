@@ -68,4 +68,29 @@ kubectl get pods
 kubectl logs mariadb-848c8f4487-nbz5x
 ```
 
+3. Enter pod
+```
+kubectl exec --stdin --tty mariadb-6f45fd79cc-dd5pj -- /bin/bash
+```
+
+4. Login to mariadb
+```
+mariadb -u root -prootpassword
+```
+
+5. View all databases
+```
+show databases;
+```
+
+6. Exit mariadb
+```
+exit;
+```
+
+7. Exit pod
+```
+exit
+```
+
 
