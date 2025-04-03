@@ -44,8 +44,9 @@ spec:
     app: whoami
 EOF
 ```
-1. View service
+1. View pods and service
 ```
+kubectl get pods
 kubectl get svc whoami-svc
 ```
 2. Curl output 
@@ -56,8 +57,12 @@ curl $(kubectl get service/whoami-svc -o jsonpath='{.spec.clusterIP}')
 ```
 kubectl scale deployment whoami --replicas=3
 ```
+4. Get Pods
+```
+kubectl get pods
+```
 
-4. Clean up
+5. Clean up
 ```
 kubectl delete deployment whoami
 kubectl delete service whoami-svc
