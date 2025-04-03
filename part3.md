@@ -62,7 +62,7 @@ wget https://raw.githubusercontent.com/uzzikie/workshop/refs/heads/master/index.
 
 4. Replace index.html file
 ```
-kubectl cp index.html $(kubectl get pod -l app=nginx -o jsonpath="{.items[0].metadata.name}")
+kubectl cp index.html $(kubectl get pod -l app=nginx -o jsonpath="{.items[0].metadata.name}"):/usr/share/nginx/html
 ```
 5. Curl output again.
 ```
