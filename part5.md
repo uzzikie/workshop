@@ -60,11 +60,11 @@ kubectl get svc
 
 2. Curl output (replace http://10.104.xx.xx with IP address from above output)
 ```
-curl -v http://10.104.xx.xx
+curl -v $(kubectl get service/wordpress-svc -o jsonpath='{.spec.clusterIP}')
 ```
 
 3. Curl wordpress install page (replace http://10.104.xx.xx with IP address from above output)
 ```
-curl http://10.104.xx.xx/wp-admin/install.php
+curl $(kubectl get service/wordpress-svc -o jsonpath='{.spec.clusterIP}')/wp-admin/install.php
 ```
 
