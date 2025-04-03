@@ -50,7 +50,7 @@ kubectl get svc whoami-svc
 ```
 2. Curl output 
 ```
-curl http://10.104.xx.xx
+curl $(kubectl get service/whoami-svc -o jsonpath='{.spec.clusterIP}')
 ```
 3. Scale up 
 ```
