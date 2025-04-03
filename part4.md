@@ -65,12 +65,12 @@ kubectl get pods
 
 2. View Logs (replace mariadb-848c8f4487-nbz5x with pod name from above output)
 ```
-kubectl logs mariadb-848c8f4487-nbz5x
+kubectl logs $(kubectl get pod -l app=mariadb -o jsonpath="{.items[0].metadata.name}")
 ```
 
 3. Enter pod
 ```
-kubectl exec --stdin --tty mariadb-6f45fd79cc-dd5pj -- /bin/bash
+kubectl exec --stdin --tty $(kubectl get pod -l app=mariadb -o jsonpath="{.items[0].metadata.name}") -- /bin/bash
 ```
 
 4. Login to mariadb
