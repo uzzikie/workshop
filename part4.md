@@ -10,7 +10,7 @@ metadata:
   name: mariadb-pvc
 spec: 
   accessModes: 
-    - ReadWriteMany
+    - ReadWriteOnce
   resources: 
     requests: 
       storage: 100Mi  
