@@ -4,6 +4,17 @@ https://hub.docker.com/_/mariadb
 
 ```
 kubectl apply -f - <<EOF
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: 
+  name: mariadb-pvc
+spec: 
+  accessModes: 
+    - ReadWriteMany
+  resources: 
+    requests: 
+      storage: 100Mi  
+  storageClassName: local-path
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -43,6 +54,13 @@ spec:
           ports:
             - name: mariadb-port
               containerPort: 3306
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+      volumes:
+       - name: data
+         persistentVolumeClaim:
+            claimName: mariadb-pvc  
 ---
 apiVersion: v1
 kind: Service
